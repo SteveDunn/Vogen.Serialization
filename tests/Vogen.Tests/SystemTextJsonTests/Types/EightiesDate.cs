@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Vogen.SerializationTests.Types;
+namespace Vogen.SerializationTests.SystemTextJsonTests.Types;
 
 [ValueObject(typeof(DateTime))]
 public partial class EightiesDate

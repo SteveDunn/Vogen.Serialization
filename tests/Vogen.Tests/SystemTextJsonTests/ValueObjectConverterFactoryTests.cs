@@ -1,10 +1,10 @@
 using System;
 using FluentAssertions;
 using Vogen.Serialization.SystemTextJson;
-using Vogen.SerializationTests.Types;
+using Vogen.SerializationTests.SystemTextJsonTests.Types;
 using Xunit;
 
-namespace Vogen.SerializationTests;
+namespace Vogen.SerializationTests.SystemTextJsonTests;
 
 public class NotAValueObject { }
 

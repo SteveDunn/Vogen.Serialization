@@ -2,21 +2,10 @@ using System;
 using System.Text.Json;
 using FluentAssertions;
 using Vogen.Serialization.SystemTextJson;
-using Vogen.SerializationTests.Types;
+using Vogen.SerializationTests.SystemTextJsonTests.Types;
 using Xunit;
-using Age = Vogen.SerializationTests.Types.Age;
-using Dave = Vogen.SerializationTests.Types.Dave;
-using EightiesDate = Vogen.SerializationTests.Types.EightiesDate;
-using MyIntStruct = Vogen.SerializationTests.Types.MyIntStruct;
-using MyIntStructWithADefaultOf22 = Vogen.SerializationTests.Types.MyIntStructWithADefaultOf22;
-using MyIntWithTwoInstanceOfInvalidAndUnspecified = Vogen.SerializationTests.Types.MyIntWithTwoInstanceOfInvalidAndUnspecified;
-using Name = Vogen.SerializationTests.Types.Name;
-using Number = Vogen.SerializationTests.Types.Number;
-using Score = Vogen.SerializationTests.Types.Score;
 
-//using MyIntStruct = Vogen.Tests.SystemTextJsonTests.MyIntStruct;
-
-namespace Vogen.SerializationTests;
+namespace Vogen.SerializationTests.SystemTextJsonTests;
 
 public class StrictSerializationTests
 {
@@ -67,11 +56,11 @@ public class StrictSerializationTests
     [Fact]
     public void Serialize_int_class()
     {
-        var vo1 = Types.MyIntClass.From(123);
+        var vo1 = MyIntClass.From(123);
         
         string s = JsonSerializer.Serialize(vo1, _options);
 
-        var vo2 = JsonSerializer.Deserialize<Types.MyIntClass>(s, _options);
+        var vo2 = JsonSerializer.Deserialize<MyIntClass>(s, _options);
         
         vo1.Should().Be(vo2);
 
@@ -81,9 +70,9 @@ public class StrictSerializationTests
     [Fact]
     public void Serialize_different_types()
     {
-        var ic1 = Types.MyIntClass.From(123);
+        var ic1 = MyIntClass.From(123);
         string s = JsonSerializer.Serialize(ic1, _options);
-        var ic2 = JsonSerializer.Deserialize<Types.MyIntClass>(s, _options);
+        var ic2 = JsonSerializer.Deserialize<MyIntClass>(s, _options);
         ic1.Should().Be(ic2);
         (ic1 == ic2).Should().BeTrue();
 
@@ -139,7 +128,7 @@ public class StrictSerializationTests
     [Fact]
     public void Serialize_invalid_mixes()
     {
-        var vo1 = Types.MyIntClass.From(123);
+        var vo1 = MyIntClass.From(123);
         
         string s = JsonSerializer.Serialize(vo1, _options);
 
@@ -155,14 +144,14 @@ public class StrictSerializationTests
 
     class MyThing
     {
-        public Types.MyIntClass TheClass { get; set; } = Types.MyIntClass.From(666);
+        public MyIntClass TheClass { get; set; } = MyIntClass.From(666);
         public MyIntStruct TheStruct { get; set; } = MyIntStruct.From(666);
     }
 
     [Fact]
     public void Serialize_composite()
     {
-        var vo1 = new MyThing {TheClass = Types.MyIntClass.From(123), TheStruct = MyIntStruct.From(333)};
+        var vo1 = new MyThing {TheClass = MyIntClass.From(123), TheStruct = MyIntStruct.From(333)};
         
         string s = JsonSerializer.Serialize(vo1, _options);
 

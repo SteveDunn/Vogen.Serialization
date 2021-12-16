@@ -2,10 +2,10 @@ using System;
 using System.Text.Json;
 using FluentAssertions;
 using Vogen.Serialization.SystemTextJson;
-using Vogen.SerializationTests.Types;
+using Vogen.SerializationTests.SystemTextJsonTests.Types;
 using Xunit;
 
-namespace Vogen.SerializationTests;
+namespace Vogen.SerializationTests.SystemTextJsonTests;
 
 public class SerializationTests
 {
@@ -49,11 +49,11 @@ public class SerializationTests
     [Fact]
     public void Serialize_int_class()
     {
-        var vo1 = Types.MyIntClass.From(123);
+        var vo1 = MyIntClass.From(123);
         
         string s = JsonSerializer.Serialize(vo1, _options);
 
-        var vo2 = JsonSerializer.Deserialize<Types.MyIntClass>(s, _options);
+        var vo2 = JsonSerializer.Deserialize<MyIntClass>(s, _options);
         
         vo1.Should().Be(vo2);
 
@@ -63,9 +63,9 @@ public class SerializationTests
     [Fact]
     public void Serialize_different_types()
     {
-        var ic1 = Types.MyIntClass.From(123);
+        var ic1 = MyIntClass.From(123);
         string s = JsonSerializer.Serialize(ic1, _options);
-        var ic2 = JsonSerializer.Deserialize<Types.MyIntClass>(s, _options);
+        var ic2 = JsonSerializer.Deserialize<MyIntClass>(s, _options);
         ic1.Should().Be(ic2);
         (ic1 == ic2).Should().BeTrue();
 
@@ -121,7 +121,7 @@ public class SerializationTests
     [Fact]
     public void Serialize_invalid_mixes()
     {
-        var vo1 = Types.MyIntClass.From(123);
+        var vo1 = MyIntClass.From(123);
         
         string s = JsonSerializer.Serialize(vo1, _options);
 
@@ -137,14 +137,14 @@ public class SerializationTests
 
     class MyThing
     {
-        public Types.MyIntClass TheClass { get; set; } = Types.MyIntClass.From(666);
+        public MyIntClass TheClass { get; set; } = MyIntClass.From(666);
         public MyIntStruct TheStruct { get; set; } = MyIntStruct.From(666);
     }
 
     [Fact]
     public void Serialize_composite()
     {
-        var vo1 = new MyThing {TheClass = Types.MyIntClass.From(123), TheStruct = MyIntStruct.From(333)};
+        var vo1 = new MyThing {TheClass = MyIntClass.From(123), TheStruct = MyIntStruct.From(333)};
         
         string s = JsonSerializer.Serialize(vo1, _options);
 
@@ -159,8 +159,8 @@ public class SerializationTests
     {
         string s = "-1";
 
-        Types.MyIntClass ret = null!;
-        Action act = () => ret = JsonSerializer.Deserialize<Types.MyIntClass>(s, _options)!;
+        MyIntClass ret = null!;
+        Action act = () => ret = JsonSerializer.Deserialize<MyIntClass>(s, _options)!;
 
         act.Should().NotThrow<ValueObjectValidationException>();
 
@@ -172,8 +172,8 @@ public class SerializationTests
     {
         string s = "-1";
 
-        Types.MyIntClass ret = null!;
-        Action act = () => ret = JsonSerializer.Deserialize<Types.MyIntClass>(s, _options)!;
+        MyIntClass ret = null!;
+        Action act = () => ret = JsonSerializer.Deserialize<MyIntClass>(s, _options)!;
 
         act.Should().NotThrow<ValueObjectValidationException>();
 

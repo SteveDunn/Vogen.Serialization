@@ -1,4 +1,4 @@
-﻿namespace Vogen.SerializationTests.Types;
+﻿namespace Vogen.SerializationTests.SystemTextJsonTests.Types;
 
 [ValueObject(typeof(int))]
 [Instance(name: "Default", value: 22)]
