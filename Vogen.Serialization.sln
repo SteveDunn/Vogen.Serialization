@@ -1,0 +1,63 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31912.275
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{9955BB98-6ACF-4EC8-AE59-1B8DDCCBDCC6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vogen.Serialization.Benchmarks", "tests\Vogen.Benchmarks\Vogen.Serialization.Benchmarks.csproj", "{D77B4296-FD1F-469A-B5ED-3EDF4EF3DFDD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vogen.SerializationTests", "tests\Vogen.Tests\Vogen.SerializationTests.csproj", "{2532B83A-01C3-4C91-AE0C-682CD9508028}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{57174048-09D4-46A6-932C-8F90F2B603D0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_files", "_files", "{72AF0ED1-00F0-42D7-9997-169FEFBC2DB2}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+		Directory.Build.props = Directory.Build.props
+		src\Directory.Build.props = src\Directory.Build.props
+		docs\nuget-readme.md = docs\nuget-readme.md
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vogen.Serialization.SystemTextJson", "src\Vogen.Serialization.SystemTextJson\Vogen.Serialization.SystemTextJson.csproj", "{74C29C0E-1997-44D8-835F-3BAF2D819AFB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vogen.Serialization.JsonNet", "src\Vogen.Serialization.JsonNet\Vogen.Serialization.JsonNet.csproj", "{32A27B0E-D2D9-4742-A4E3-386F50E43EE2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D77B4296-FD1F-469A-B5ED-3EDF4EF3DFDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D77B4296-FD1F-469A-B5ED-3EDF4EF3DFDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D77B4296-FD1F-469A-B5ED-3EDF4EF3DFDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D77B4296-FD1F-469A-B5ED-3EDF4EF3DFDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2532B83A-01C3-4C91-AE0C-682CD9508028}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2532B83A-01C3-4C91-AE0C-682CD9508028}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2532B83A-01C3-4C91-AE0C-682CD9508028}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2532B83A-01C3-4C91-AE0C-682CD9508028}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74C29C0E-1997-44D8-835F-3BAF2D819AFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74C29C0E-1997-44D8-835F-3BAF2D819AFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74C29C0E-1997-44D8-835F-3BAF2D819AFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74C29C0E-1997-44D8-835F-3BAF2D819AFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32A27B0E-D2D9-4742-A4E3-386F50E43EE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32A27B0E-D2D9-4742-A4E3-386F50E43EE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32A27B0E-D2D9-4742-A4E3-386F50E43EE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32A27B0E-D2D9-4742-A4E3-386F50E43EE2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D77B4296-FD1F-469A-B5ED-3EDF4EF3DFDD} = {9955BB98-6ACF-4EC8-AE59-1B8DDCCBDCC6}
+		{2532B83A-01C3-4C91-AE0C-682CD9508028} = {9955BB98-6ACF-4EC8-AE59-1B8DDCCBDCC6}
+		{74C29C0E-1997-44D8-835F-3BAF2D819AFB} = {57174048-09D4-46A6-932C-8F90F2B603D0}
+		{32A27B0E-D2D9-4742-A4E3-386F50E43EE2} = {57174048-09D4-46A6-932C-8F90F2B603D0}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E4D5DD02-533B-4333-9CF9-ACD294C7F2EE}
+	EndGlobalSection
+EndGlobal

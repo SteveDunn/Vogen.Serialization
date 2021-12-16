@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>
+      Provides serialization support between Vogen and Newtonsoft.Json
+    </Description>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageTags>vogen;system.text.json</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\assets\logo\gradient_128x128.png" Pack="true" PackagePath="" />
+    <None Include="..\..\docs\nuget-readme.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <!-- only used at compile time and not run time-->
+  <PropertyGroup>
+    <IncludeBuildOutput>true</IncludeBuildOutput>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageReadmeFile>nuget-readme.md</PackageReadmeFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="bin\Debug\netstandard2.0\\Vogen.Serialization.SystemTextJson.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Text.Json" Version="6.0.1" />
+    <PackageReference Include="Vogen" Version="1.0.9" />
+  </ItemGroup>
+
+</Project>
