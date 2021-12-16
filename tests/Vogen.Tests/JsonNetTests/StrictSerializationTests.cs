@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using FluentAssertions;
 using Newtonsoft.Json;
+using Vogen.Serialization.JsonNet;
 using Vogen.SerializationTests.JsonNetTests.Types;
 using Xunit;
 
@@ -10,7 +12,10 @@ public class StrictSerializationTests
 {
     readonly JsonSerializerSettings _settings = new()
     {
-        //Converters = { new JsonNetConverterFactory() }
+        Converters = new List<JsonConverter>
+        {
+            new MyJsonConverter(isStrict: true)
+        }
     };
 
     [Fact]

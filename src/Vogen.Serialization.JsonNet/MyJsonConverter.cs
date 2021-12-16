@@ -13,17 +13,22 @@ namespace Vogen.Serialization.JsonNet;
 /// </summary>
 public class MyJsonConverter : JsonConverter
 {
+    class ConversionOptions
+    {
+        public bool IsStrict { get; set; }
+    }
+
     private ValueObjectConverterInnerBase _instance = null!;
-    private readonly bool _isStrict;
+    private readonly ConversionOptions _conversionOptions;
 
     /// <summary>
     /// todo:
     /// </summary>
     /// <param name="isStrict"></param>
-    public MyJsonConverter(bool isStrict = false)
+    public MyJsonConverter(bool isStrict = false) => _conversionOptions = new ConversionOptions
     {
-        _isStrict = isStrict;
-    }
+        IsStrict = isStrict
+    };
 
     /// <summary>
     /// todo:
@@ -58,11 +63,6 @@ public class MyJsonConverter : JsonConverter
         return ret2;
     }
 
-    class CombinedSerializerOptions
-    {
-        public bool IsStrict { get; set; }
-    }
-
     /// <summary>
     /// todo:
     /// </summary>
@@ -83,15 +83,12 @@ public class MyJsonConverter : JsonConverter
 
         Type genericType = typeof(ValueObjectConverterInner<,>).MakeGenericType(objectType, typeOfPrimitive);
 
-        var ctor = genericType.GetConstructor(new[] { typeof(CombinedSerializerOptions) })!;
+        var ctor = genericType.GetConstructor(new[] { typeof(ConversionOptions) })!;
 
         _instance = (ValueObjectConverterInnerBase) ctor.Invoke(
             new[]
             {
-                new CombinedSerializerOptions
-                {
-                    IsStrict = _isStrict
-                }
+                _conversionOptions
             });
 
         return true;
@@ -102,16 +99,15 @@ public class MyJsonConverter : JsonConverter
         public abstract object Build(JValue value);
     }
 
-    [SuppressMessage("Microsoft.Usage", "CA1812:*", Justification = "It is instantiated by Reflection")]
+    //[SuppressMessage("Microsoft.Usage", "CA1812:*", Justification = "It is instantiated by Reflection")]
     private class ValueObjectConverterInner<TValueType, TPrimitive> : ValueObjectConverterInnerBase where TPrimitive : notnull
     {
-        private readonly CombinedSerializerOptions _options;
+        private readonly ConversionOptions _options;
         private readonly Type _destinationType = typeof(TValueType);
         private readonly MethodInfo? _fromMethod;
-        private readonly PropertyInfo _readerMethod;
         private readonly ConstructorInfo _constructor;
 
-        public ValueObjectConverterInner(CombinedSerializerOptions options)
+        public ValueObjectConverterInner(ConversionOptions options)
         {
             _options = options;
             
@@ -128,17 +124,9 @@ public class MyJsonConverter : JsonConverter
                 types,
                 null)
                 ?? throw new InvalidOperationException($"Cannot find the constructor on ValueObject on type {_destinationType.FullName} that takes a type of {typeof(TPrimitive)}");
-
-            var valueProperty = _destinationType.GetProperty(
-                "Value",
-                BindingFlags.Public | BindingFlags.Instance);
-
-            _readerMethod = valueProperty
-                ?? throw new InvalidOperationException(
-                    $"Cannot find the Value property on ValueObject of type {_destinationType.FullName}");
         }
 
-        private TValueType Build(JValue v)
+        public override object Build(JValue v)
         {
             if (v == null)
             {
@@ -151,7 +139,7 @@ public class MyJsonConverter : JsonConverter
 
                 if (_options.IsStrict)
                 {
-                    var result = (TValueType)_fromMethod?.Invoke(null, parms)!
+                    var result = (TValueType) _fromMethod?.Invoke(null, parms)!
                         ?? throw new InvalidOperationException(
                             $"Value object cannot be converted from a {typeof(TValueType)} as there is no public static 'From' method defined.");
 
@@ -161,7 +149,7 @@ public class MyJsonConverter : JsonConverter
                 var x = _constructor?.Invoke(parms)
                     ?? throw new InvalidOperationException(
                         $"Value object cannot be converted from a {typeof(TValueType)} as there is no public constructor taking '{typeof(TPrimitive)}'");
-                
+
                 return (TValueType) x;
             }
             catch (Exception e) when (e is TargetInvocationException &&
@@ -169,11 +157,6 @@ public class MyJsonConverter : JsonConverter
             {
                 throw e.InnerException;
             }
-        }
-
-        public override object Build(JValue value)
-        {
-            return Build(value)!;
         }
     }
 }

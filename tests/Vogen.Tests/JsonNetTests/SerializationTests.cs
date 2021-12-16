@@ -12,15 +12,10 @@ public class SerializationTests
 {
     readonly JsonSerializerSettings _settings = new()
     {
-        Converters = converters,
-        //DefaultValueHandling = DefaultValueHandling.Ignore,
-        //ConstructorHandling =  ConstructorHandling.AllowNonPublicDefaultConstructor
-        // Converters = { new Converter() }
-    };
-
-    private static IList<JsonConverter> converters = new List<JsonConverter>
-    {
-        new MyJsonConverter()
+        Converters = new List<JsonConverter>
+        {
+            new MyJsonConverter()
+        },
     };
 
     // [Fact]
