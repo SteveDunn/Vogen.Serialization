@@ -13,19 +13,22 @@ namespace Vogen.Serialization.JsonNet;
 /// </summary>
 public class MyJsonConverter : JsonConverter
 {
-    // private MethodInfo? _builderMethod;
-    private Func<CombinedSerializerOptions, object> _lambda = null!;
     private ValueObjectConverterInnerBase _instance = null!;
+    private readonly bool _isStrict;
+
+    /// <summary>
+    /// todo:
+    /// </summary>
+    /// <param name="isStrict"></param>
+    public MyJsonConverter(bool isStrict = false)
+    {
+        _isStrict = isStrict;
+    }
 
     /// <summary>
     /// todo:
     /// </summary>
     public override bool CanWrite => false;
-
-    // public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-    // {
-    //   writer.wr  
-    // }
 
     /// <summary>
     /// todo:
@@ -45,27 +48,19 @@ public class MyJsonConverter : JsonConverter
     /// <param name="serializer"></param>
     /// <returns></returns>
     /// <exception cref="InvalidOperationException"></exception>
-    public override object ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
+    public override object ReadJson(JsonReader reader, Type objectType, object? existingValue,
+        JsonSerializer serializer)
     {
-         var jo = serializer.Deserialize<JValue>(reader)!;
-    //
-    //     return jo.Value<int>();//["Value"]!;
-    // }
+        var jo = serializer.Deserialize<JValue>(reader)!;
 
-    var ret2 = _instance.Build(jo);
-    return ret2;
-    
-        // var converterInner = (ValueObjectConverterInnerBase)_lambda.Invoke(null!);
-        //
-        // var ret = converterInner.Build(jo);
-        //
-        // return ret;
-        //return _builderMethod?.Invoke(null, new[] {reader.Value}) ?? throw new InvalidOperationException("Null!");
+        var ret2 = _instance.Build(jo);
+
+        return ret2;
     }
 
     class CombinedSerializerOptions
     {
-        
+        public bool IsStrict { get; set; }
     }
 
     /// <summary>
@@ -93,15 +88,11 @@ public class MyJsonConverter : JsonConverter
         _instance = (ValueObjectConverterInnerBase) ctor.Invoke(
             new[]
             {
-                new CombinedSerializerOptions()
+                new CombinedSerializerOptions
+                {
+                    IsStrict = _isStrict
+                }
             });
-
-        var parameter = Expression.Parameter(typeof(CombinedSerializerOptions), "options");
-        NewExpression newExp = Expression.New(ctor, parameter);
-
-        var lambda = Expression.Lambda<Func<CombinedSerializerOptions, object>>(newExp, parameter);
-
-        _lambda = lambda.Compile();
 
         return true;
     }
@@ -114,7 +105,7 @@ public class MyJsonConverter : JsonConverter
     [SuppressMessage("Microsoft.Usage", "CA1812:*", Justification = "It is instantiated by Reflection")]
     private class ValueObjectConverterInner<TValueType, TPrimitive> : ValueObjectConverterInnerBase where TPrimitive : notnull
     {
-        // private readonly JsonConverter<TValueType>? _valueConverter;
+        private readonly CombinedSerializerOptions _options;
         private readonly Type _destinationType = typeof(TValueType);
         private readonly MethodInfo? _fromMethod;
         private readonly PropertyInfo _readerMethod;
@@ -122,11 +113,8 @@ public class MyJsonConverter : JsonConverter
 
         public ValueObjectConverterInner(CombinedSerializerOptions options)
         {
-            // For performance, use the existing converter if available.
-            // var jsonConverter = options.JsonSerializerOptions.GetConverter(typeof(JsonConverter<TValueType>));
-
-            // _valueConverter = jsonConverter as JsonConverter<TValueType>;
-
+            _options = options;
+            
             _fromMethod = _destinationType.GetMethod(
                     "From",
                     BindingFlags.Public | BindingFlags.FlattenHierarchy | BindingFlags.Static)
@@ -150,7 +138,7 @@ public class MyJsonConverter : JsonConverter
                     $"Cannot find the Value property on ValueObject of type {_destinationType.FullName}");
         }
 
-        public TValueType Build(Type typeToConvert, JValue v)
+        private TValueType Build(JValue v)
         {
             if (v == null)
             {
@@ -159,10 +147,10 @@ public class MyJsonConverter : JsonConverter
 
             try
             {
-                if (true)
+                var parms = new object[] { v.Value<TPrimitive>()! };
+
+                if (_options.IsStrict)
                 {
-                    var parms = new object[] {v.Value<TPrimitive>()!};
-                    
                     var result = (TValueType)_fromMethod?.Invoke(null, parms)!
                         ?? throw new InvalidOperationException(
                             $"Value object cannot be converted from a {typeof(TValueType)} as there is no public static 'From' method defined.");
@@ -170,11 +158,11 @@ public class MyJsonConverter : JsonConverter
                     return (TValueType) result;
                 }
 
-                // var x = _constructor?.Invoke(new[] { v })
-                //     ?? throw new InvalidOperationException(
-                //         $"Value object cannot be converted from a {typeof(TValueType)} as there is no public constructor taking '{typeof(TPrimitive)}'");
-                //
-                // return (TValueType) x;
+                var x = _constructor?.Invoke(parms)
+                    ?? throw new InvalidOperationException(
+                        $"Value object cannot be converted from a {typeof(TValueType)} as there is no public constructor taking '{typeof(TPrimitive)}'");
+                
+                return (TValueType) x;
             }
             catch (Exception e) when (e is TargetInvocationException &&
                                       e.InnerException is ValueObjectValidationException)
@@ -185,7 +173,7 @@ public class MyJsonConverter : JsonConverter
 
         public override object Build(JValue value)
         {
-            return Build(null!, value)!;
+            return Build(value)!;
         }
     }
 }
