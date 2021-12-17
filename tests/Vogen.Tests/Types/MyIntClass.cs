@@ -1,9 +1,9 @@
 using System.ComponentModel;
 using Vogen.Serialization.JsonNet;
 
-namespace Vogen.SerializationTests.JsonNetTests.Types;
+namespace Vogen.SerializationTests.Types;
 
-[TypeConverter(typeof(NewtonsoftConverter))]
+//[TypeConverter(typeof(NewtonsoftConverter))]
 [ValueObject(typeof(int))]
 public partial class MyIntClass
 {

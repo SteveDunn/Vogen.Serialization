@@ -1,4 +1,4 @@
-namespace Vogen.SerializationTests.SystemTextJsonTests.Types;
+namespace Vogen.SerializationTests.Types;
 
 [ValueObject(typeof(int))]
 public partial class MyIntClassWithValidation

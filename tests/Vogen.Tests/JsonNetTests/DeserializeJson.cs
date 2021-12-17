@@ -7,7 +7,7 @@ using Vogen.Serialization.JsonNet;
 
 namespace Vogen.SerializationTests.JsonNetTests
 {
-    [TypeConverter(typeof(NewtonsoftConverter))]
+    //[TypeConverter(typeof(NewtonsoftConverter))]
     [ValueObject(typeof(string))]
     [Instance(name: "Uninitialised", value: "[uninitialised]")]
     public partial class Name
@@ -23,7 +23,7 @@ namespace Vogen.SerializationTests.JsonNetTests
         }
     }
 
-    [TypeConverter(typeof(NewtonsoftConverter))]
+    //[TypeConverter(typeof(NewtonsoftConverter))]
     [ValueObject(typeof(int))]
     [Instance(name: "Uninitialised", value: "-1")]
     public partial class Age

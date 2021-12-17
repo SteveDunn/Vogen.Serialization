@@ -1,7 +1,7 @@
 using System;
 using FluentAssertions;
 using Vogen.Serialization.SystemTextJson;
-using Vogen.SerializationTests.SystemTextJsonTests.Types;
+using Vogen.SerializationTests.Types;
 using Xunit;
 
 namespace Vogen.SerializationTests.SystemTextJsonTests;

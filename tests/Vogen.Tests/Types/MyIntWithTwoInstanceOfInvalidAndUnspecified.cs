@@ -1,4 +1,4 @@
-﻿namespace Vogen.SerializationTests.SystemTextJsonTests.Types;
+﻿namespace Vogen.SerializationTests.Types;
 
 [ValueObject(typeof(int))]
 [Instance(name: "Invalid", value: -1)]
