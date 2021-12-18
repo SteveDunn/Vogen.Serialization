@@ -1,9 +1,5 @@
-﻿using System.ComponentModel;
-using Vogen.Serialization.JsonNet;
+﻿namespace Vogen.SerializationTests.Types;
 
-namespace Vogen.SerializationTests.Types;
-
-//[TypeConverter(typeof(NewtonsoftConverter))]
 [ValueObject(typeof(int))]
 public partial struct MyIntStruct
 {

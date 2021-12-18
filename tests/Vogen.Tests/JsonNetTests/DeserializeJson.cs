@@ -1,11 +1,4 @@
-﻿using System;
-using System.ComponentModel;
-using FluentAssertions;
-using Newtonsoft.Json;
-using Xunit;
-using Vogen.Serialization.JsonNet;
-
-namespace Vogen.SerializationTests.JsonNetTests
+﻿namespace Vogen.SerializationTests.JsonNetTests
 {
     //[TypeConverter(typeof(NewtonsoftConverter))]
     [ValueObject(typeof(string))]
