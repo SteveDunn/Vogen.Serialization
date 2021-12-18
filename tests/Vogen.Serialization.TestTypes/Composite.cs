@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using Vogen;
 
-namespace Benchmarks.Types;
+namespace Vogen.Serialization.TestTypes;
 
 public class Composite
 {

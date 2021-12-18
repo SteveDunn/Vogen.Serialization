@@ -4,8 +4,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text.Json;
 using BenchmarkDotNet.Attributes;
-using Benchmarks.Types;
 using Vogen.Serialization.SystemTextJson;
+using Vogen.Serialization.TestTypes;
 
 namespace Benchmarks.SystemTextJson;
 

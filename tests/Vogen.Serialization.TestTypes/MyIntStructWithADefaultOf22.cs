@@ -1,4 +1,4 @@
-﻿namespace Vogen.Serialization.UnitTests.Types;
+﻿namespace Vogen.Serialization.TestTypes;
 
 [ValueObject(typeof(int))]
 [Instance(name: "Default", value: 22)]

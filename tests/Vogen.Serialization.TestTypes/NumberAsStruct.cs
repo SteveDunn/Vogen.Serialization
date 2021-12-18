@@ -1,6 +1,4 @@
-﻿using Vogen;
-
-namespace Benchmarks.Types;
+﻿namespace Vogen.Serialization.TestTypes;
 
 [ValueObject(typeof(int))]
 public partial struct NumberAsStruct

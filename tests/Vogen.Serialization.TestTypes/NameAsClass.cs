@@ -1,6 +1,4 @@
-﻿using Vogen;
-
-namespace Benchmarks.Types;
+﻿namespace Vogen.Serialization.TestTypes;
 
 [ValueObject(typeof(string))]
 public partial class NameAsClass

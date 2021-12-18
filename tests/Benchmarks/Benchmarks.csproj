@@ -33,6 +33,11 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\..\src\Vogen.Serialization.SystemTextJson\Vogen.Serialization.SystemTextJson.csproj" />
+	  <ProjectReference Include="..\Vogen.Serialization.TestTypes\Vogen.Serialization.TestTypes.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Types\" />
 	</ItemGroup>
   
   

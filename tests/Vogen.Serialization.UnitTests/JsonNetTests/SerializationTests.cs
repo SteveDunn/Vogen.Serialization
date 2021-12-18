@@ -5,7 +5,7 @@ using System.Linq;
 using FluentAssertions;
 using Newtonsoft.Json;
 using Vogen.Serialization.JsonNet;
-using Vogen.Serialization.UnitTests.Types;
+using Vogen.Serialization.TestTypes;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -13,7 +13,34 @@ namespace Vogen.Serialization.UnitTests.JsonNetTests;
 
 public class SerializationTests
 {
-    public SerializationTests(ITestOutputHelper helper) => Console.SetOut(new ConsoleOutputHelper(helper));
+    // public SerializationTests(ITestOutputHelper helper) => Console.SetOut(new ConsoleOutputHelper(helper));
+
+    [Theory]
+    [ClassData(typeof(TestData))]
+    public void SerializingCompositeList(JsonSerializerSettings settings)
+    {
+        var composites = Enumerable.Range(1, 10).Select(
+            n =>
+                new Composite
+                {
+                    NameAsClass = NameAsClass.From($"Name {n}"),
+                    NumberAsClass = NumberAsClass.From(n),
+                    NameAsStruct = NameAsStruct.From($"Name {n}"),
+                    NumberAsStruct = NumberAsStruct.From(n),
+
+                    NamesAsClass = Enumerable.Range(1, 10).Select(n => NameAsClass.From($"Name {n}")).ToList(),
+                    NamesAsStruct = Enumerable.Range(1, 10).Select(n => NameAsStruct.From($"Name {n}")).ToList(),
+                    NumbersAsClass = Enumerable.Range(1, 10).Select(NumberAsClass.From).ToList(),
+                    NumbersAsStruct = Enumerable.Range(1, 10).Select(NumberAsStruct.From).ToList(),
+                }).ToList();
+
+        string text = JsonConvert.SerializeObject(composites, settings);
+
+        composites = JsonConvert.DeserializeObject<List<Composite>>(text, settings)!;
+
+        composites[0].NumbersAsClass[0].Value.Should().Be(1);
+        composites[9].NumbersAsClass[9].Value.Should().Be(10);
+    }
 
     [Theory]
     [ClassData(typeof(TestData))]
@@ -55,13 +82,6 @@ public class SerializationTests
 
         p2[4].Age.Should().Be(Age.From(5));
         p2[4].Name.Should().Be(Name.From("Fred5"));
-    }
-
-    private class Person
-    {
-        public Name Name { get; set; } = Name.Uninitialised;
-
-        public Age Age { get; set; } = Age.Uninitialised;
     }
 
     [Theory]
