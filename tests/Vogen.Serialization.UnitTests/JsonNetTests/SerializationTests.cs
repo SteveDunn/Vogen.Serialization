@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using FluentAssertions;
 using Newtonsoft.Json;
@@ -11,9 +12,17 @@ using Xunit.Abstractions;
 
 namespace Vogen.Serialization.UnitTests.JsonNetTests;
 
-public class SerializationTests
+public class SerializationTests : IDisposable
 {
-    // public SerializationTests(ITestOutputHelper helper) => Console.SetOut(new ConsoleOutputHelper(helper));
+    private readonly TraceOutputHelper _traceOutputHelper;
+
+    public SerializationTests(ITestOutputHelper helper)
+    {
+        _traceOutputHelper = new TraceOutputHelper(helper);
+        Trace.Listeners.Add(_traceOutputHelper);
+    }
+
+    public void Dispose() => Trace.Listeners.Remove(_traceOutputHelper);
 
     [Theory]
     [ClassData(typeof(TestData))]

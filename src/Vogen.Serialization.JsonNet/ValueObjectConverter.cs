@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Reflection;
 using Newtonsoft.Json;
 
@@ -24,7 +25,7 @@ public class ValueObjectConverter : JsonConverter
     /// <param name="isStrict"></param>
     public ValueObjectConverter(bool isStrict = false)
     {
-        Console.Out.WriteLine("xxxxx ValueObjectConverter constructor");
+        Trace.WriteLine("xxxxx ValueObjectConverter constructor");
 
         _innerSerializers = new Dictionary<Type, InnerSerializer>();
 
@@ -87,7 +88,7 @@ public class ValueObjectConverter : JsonConverter
     /// <exception cref="JsonException"></exception>
     public override bool CanConvert(Type objectType)
     {
-        Console.Out.WriteLine($"In CanConvert for {objectType}");
+        Trace.WriteLine($"In CanConvert for {objectType}");
 
         ValueObjectAttribute? voAttribute =
             Attribute.GetCustomAttribute(objectType, typeof(ValueObjectAttribute)) as ValueObjectAttribute;
@@ -116,7 +117,7 @@ public class ValueObjectConverter : JsonConverter
         
         _innerSerializers.Add(objectType, serializer);
 
-        Console.Out.WriteLine($"++ CanConvert => true");
+        Trace.WriteLine($"++ CanConvert => true");
 
         return true;
     }
@@ -138,7 +139,7 @@ public class ValueObjectConverter : JsonConverter
 
         public InnerSerializer(ConversionOptions options)
         {
-            Console.Out.WriteLine($"InnerSerializer ({GetType()}) constructor");
+            Trace.WriteLine($"InnerSerializer ({GetType()}) constructor");
 
             _options = options;
 
