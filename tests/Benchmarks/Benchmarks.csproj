@@ -16,6 +16,7 @@
   <ItemGroup>
     <PackageReference Include="BenchmarkDotNet" Version="0.13.1" />
     <PackageReference Include="BenchmarkDotNet.Diagnostics.Windows" Version="0.13.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Vogen" Version="1.0.9" />
   </ItemGroup>
 
@@ -32,6 +33,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\..\src\Vogen.Serialization.JsonNet\Vogen.Serialization.JsonNet.csproj" />
 	  <ProjectReference Include="..\..\src\Vogen.Serialization.SystemTextJson\Vogen.Serialization.SystemTextJson.csproj" />
 	  <ProjectReference Include="..\Vogen.Serialization.TestTypes\Vogen.Serialization.TestTypes.csproj" />
 	</ItemGroup>

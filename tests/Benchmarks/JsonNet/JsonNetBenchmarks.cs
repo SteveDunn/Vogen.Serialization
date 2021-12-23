@@ -2,45 +2,44 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text.Json;
 using BenchmarkDotNet.Attributes;
-using Vogen.Serialization.SystemTextJson;
+using Newtonsoft.Json;
+using Vogen.Serialization.JsonNet;
 using Vogen.Serialization.TestTypes;
 
-namespace Benchmarks.SystemTextJson;
+namespace Benchmarks.JsonNet;
 
-[MemoryDiagnoser, Description("Serializing with System.Text.Json")]
-public class Benchmarks
+[MemoryDiagnoser, Description("[De]Serializing with Newtonsoft.Json")]
+public class JsonNetBenchmarks
 {
-    private JsonSerializerOptions _options;
+    private JsonSerializerSettings _options;
 
     [Params(true, false)]
     public bool Strict { get; set; }
 
+    public string Library => "Newtonsoft.Json";
+
     [GlobalSetup]
     public void GlobalSetup() =>
-        _options = new JsonSerializerOptions()
+        _options = new JsonSerializerSettings
         {
-            Converters =
+            Converters = new List<JsonConverter>
             {
-                new VogenConverterFactory(new VogenSerializationOptions
-                {
-                    IsStrict = Strict
-                })
-            }
+                new ValueObjectConverter(isStrict: Strict)
+            },
         };
 
     [Benchmark]
-    public (int, int) NativeInt()
+    public (int, int) NativeInt_JsonNet()
     {
         int x = TestData.RandomNumberBetween(1, 10_000);
         int y = TestData.RandomNumberBetween(1, 10_000);
 
-        var xSerialized = JsonSerializer.Serialize(x, _options);
-        var ySerialized = JsonSerializer.Serialize(y, _options);
+        var xSerialized = JsonConvert.SerializeObject(x, _options);
+        var ySerialized = JsonConvert.SerializeObject(y, _options);
 
-        int x2 = JsonSerializer.Deserialize<int>(xSerialized, _options);
-        int y2 = JsonSerializer.Deserialize<int>(ySerialized, _options);
+        int x2 = JsonConvert.DeserializeObject<int>(xSerialized, _options);
+        int y2 = JsonConvert.DeserializeObject<int>(ySerialized, _options);
             
         return (x2, y2);
     }
@@ -51,26 +50,26 @@ public class Benchmarks
         var x = new NumberAsRecordStruct(TestData.RandomNumberBetween(1, 10_000));
         var y = new NumberAsRecordStruct(TestData.RandomNumberBetween(1, 10_000));
 
-        var xSerialized = JsonSerializer.Serialize(x, _options);
-        var ySerialized = JsonSerializer.Serialize(y, _options);
+        var xSerialized = JsonConvert.SerializeObject(x, _options);
+        var ySerialized = JsonConvert.SerializeObject(y, _options);
 
-        var x2 = JsonSerializer.Deserialize<NumberAsRecordStruct>(xSerialized, _options);
-        var y2 = JsonSerializer.Deserialize<NumberAsRecordStruct>(ySerialized, _options);
+        var x2 = JsonConvert.DeserializeObject<NumberAsRecordStruct>(xSerialized, _options);
+        var y2 = JsonConvert.DeserializeObject<NumberAsRecordStruct>(ySerialized, _options);
 
         return (x2, y2);
     }
 
     [Benchmark]
-    public (NumberAsStruct x2, NumberAsStruct y2) value_object_string_containing_int()
+    public (NumberAsStruct x2, NumberAsStruct y2) value_object_struct_containing_int()
     {
         var x = NumberAsStruct.From(TestData.RandomNumberBetween(1, 10_000));
         var y = NumberAsStruct.From(TestData.RandomNumberBetween(1, 10_000));
 
-        var xSerialized = JsonSerializer.Serialize(x, _options);
-        var ySerialized = JsonSerializer.Serialize(y, _options);
+        var xSerialized = JsonConvert.SerializeObject(x, _options);
+        var ySerialized = JsonConvert.SerializeObject(y, _options);
 
-        var x2 = JsonSerializer.Deserialize<NumberAsStruct>(xSerialized, _options);
-        var y2 = JsonSerializer.Deserialize<NumberAsStruct>(ySerialized, _options);
+        var x2 = JsonConvert.DeserializeObject<NumberAsStruct>(xSerialized, _options);
+        var y2 = JsonConvert.DeserializeObject<NumberAsStruct>(ySerialized, _options);
 
         return (x2, y2);
     }
@@ -81,11 +80,11 @@ public class Benchmarks
         var x = NumberAsClass.From(TestData.RandomNumberBetween(1, 10_000));
         var y = NumberAsClass.From(TestData.RandomNumberBetween(1, 10_000));
 
-        var xSerialized = JsonSerializer.Serialize(x, _options);
-        var ySerialized = JsonSerializer.Serialize(y, _options);
+        var xSerialized = JsonConvert.SerializeObject(x, _options);
+        var ySerialized = JsonConvert.SerializeObject(y, _options);
 
-        var x2 = JsonSerializer.Deserialize<NumberAsClass>(xSerialized, _options);
-        var y2 = JsonSerializer.Deserialize<NumberAsClass>(ySerialized, _options);
+        var x2 = JsonConvert.DeserializeObject<NumberAsClass>(xSerialized, _options);
+        var y2 = JsonConvert.DeserializeObject<NumberAsClass>(ySerialized, _options);
 
         return (x2, y2);
     }
@@ -100,13 +99,13 @@ public class Benchmarks
     public (string r3, string r4) native_string()
     {
         var r1 = TestData.GetRandomString();
-        var r1Serialised = JsonSerializer.Serialize(r1, _options);
+        var r1Serialised = JsonConvert.SerializeObject(r1, _options);
 
         var r2 = TestData.GetRandomString();
-        var r2Serialised = JsonSerializer.Serialize(r2, _options);
+        var r2Serialised = JsonConvert.SerializeObject(r2, _options);
 
-        var r3 = JsonSerializer.Deserialize<string>(r1Serialised, _options);
-        var r4 = JsonSerializer.Deserialize<string>(r2Serialised, _options);
+        var r3 = JsonConvert.DeserializeObject<string>(r1Serialised, _options);
+        var r4 = JsonConvert.DeserializeObject<string>(r2Serialised, _options);
 
         return (r3, r4);
     }
@@ -115,13 +114,13 @@ public class Benchmarks
     public (NameAsClass r3, NameAsClass r4) value_object_class_containing_string()
     {
         var r1 = NameAsClass.From(TestData.GetRandomString());
-        var r1Serialised = JsonSerializer.Serialize(r1, _options);
+        var r1Serialised = JsonConvert.SerializeObject(r1, _options);
 
         var r2 = NameAsClass.From(TestData.GetRandomString());
-        var r2Serialised = JsonSerializer.Serialize(r2, _options);
+        var r2Serialised = JsonConvert.SerializeObject(r2, _options);
 
-        var r3 = JsonSerializer.Deserialize<NameAsClass>(r1Serialised, _options);
-        var r4 = JsonSerializer.Deserialize<NameAsClass>(r2Serialised, _options);
+        var r3 = JsonConvert.DeserializeObject<NameAsClass>(r1Serialised, _options);
+        var r4 = JsonConvert.DeserializeObject<NameAsClass>(r2Serialised, _options);
 
         return (r3, r4);
     }
@@ -130,13 +129,13 @@ public class Benchmarks
     public (NameAsStruct r3, NameAsStruct r4) value_object_struct_containing_string()
     {
         var r1 = NameAsStruct.From(TestData.GetRandomString());
-        var r1Serialised = JsonSerializer.Serialize(r1, _options);
+        var r1Serialised = JsonConvert.SerializeObject(r1, _options);
 
         var r2 = NameAsStruct.From(TestData.GetRandomString());
-        var r2Serialised = JsonSerializer.Serialize(r2, _options);
+        var r2Serialised = JsonConvert.SerializeObject(r2, _options);
 
-        var r3 = JsonSerializer.Deserialize<NameAsStruct>(r1Serialised, _options);
-        var r4 = JsonSerializer.Deserialize<NameAsStruct>(r2Serialised, _options);
+        var r3 = JsonConvert.DeserializeObject<NameAsStruct>(r1Serialised, _options);
+        var r4 = JsonConvert.DeserializeObject<NameAsStruct>(r2Serialised, _options);
 
         return (r3, r4);
     }
@@ -175,9 +174,9 @@ public class Benchmarks
     {
         var n1 = Enumerable.Range(1, amount).Select(func).ToList();
 
-        var text = JsonSerializer.Serialize(n1, _options);
+        var text = JsonConvert.SerializeObject(n1, _options);
 
-        n1 = JsonSerializer.Deserialize<List<T>>(text);
+        n1 = JsonConvert.DeserializeObject<List<T>>(text, _options);
 
         return n1;
     }
