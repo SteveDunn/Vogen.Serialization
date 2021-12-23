@@ -43,12 +43,14 @@ The `Strict` value represents whether the Value Objects had validation or not.
 |  value_object_class_containing_string |   True |    45.08 μs |  17.868 μs |  0.979 μs |  0.7324 |     13 KB |
 | value_object_struct_containing_string |   True |    45.74 μs |   0.411 μs |  0.023 μs |  0.7935 |     13 KB |
 |                 various_value_objects |   True | 8,224.62 μs | 538.024 μs | 29.491 μs | 46.8750 |    845 KB |
+```
 
 ### System.Text.Json
 
+```
 |                                Method | Strict |         Mean |        Error |      StdDev |  Gen 0 |  Gen 1 | Allocated |
 |-------------------------------------- |------- |-------------:|-------------:|------------:|-------:|-------:|----------:|
-|              **NativeInt_SystemTextJson** |  **False** |     **375.5 ns** |     **28.61 ns** |     **1.57 ns** | **0.0219** |      **-** |     **368 B** |
+|              NativeInt_SystemTextJson |  False |     375.5 ns |     28.61 ns |     1.57 ns | 0.0219 |      - |     368 B |
 |          record_struct_containing_int |  False |     669.3 ns |     25.44 ns |     1.39 ns | 0.0296 |      - |     510 B |
 |    value_object_struct_containing_int |  False |   1,209.3 ns |    123.38 ns |     6.76 ns | 0.0362 |      - |     624 B |
 |     value_object_class_containing_int |  False |   1,235.7 ns |    114.86 ns |     6.30 ns | 0.0362 |      - |     624 B |
@@ -64,7 +66,7 @@ The `Strict` value represents whether the Value Objects had validation or not.
 |  value_object_class_containing_string |   True |   1,312.9 ns |    164.98 ns |     9.04 ns | 0.0496 |      - |     848 B |
 | value_object_struct_containing_string |   True |   1,367.8 ns |    118.81 ns |     6.51 ns | 0.0496 |      - |     848 B |
 |                 various_value_objects |   True | 216,738.1 ns | 20,647.94 ns | 1,131.78 ns | 6.1035 | 0.7324 | 105,080 B |
-
+```
 
 To run the benchmarks yourself, in the `tests\benchmarks` folder, run:
 
