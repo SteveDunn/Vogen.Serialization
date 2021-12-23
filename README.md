@@ -27,7 +27,7 @@ The `Strict` value represents whether the Value Objects had validation or not.
 ```
 |                                Method | Strict |        Mean |      Error |    StdDev |   Gen 0 | Allocated |
 |-------------------------------------- |------- |------------:|-----------:|----------:|--------:|----------:|
-|                     **NativeInt_JsonNet** |  **False** |    **17.80 μs** |   **2.558 μs** |  **0.140 μs** |  **0.5798** |     **10 KB** |
+|                     NativeInt_JsonNet |  False |    17.80 μs |   2.558 μs |  0.140 μs |  0.5798 |     10 KB |
 |          record_struct_containing_int |  False |    34.59 μs |   1.145 μs |  0.063 μs |  0.6714 |     12 KB |
 |    value_object_struct_containing_int |  False |    46.69 μs |   5.881 μs |  0.322 μs |  0.7935 |     13 KB |
 |     value_object_class_containing_int |  False |    44.56 μs |   1.495 μs |  0.082 μs |  0.7935 |     13 KB |
@@ -35,7 +35,7 @@ The `Strict` value represents whether the Value Objects had validation or not.
 |  value_object_class_containing_string |  False |    44.12 μs |   3.269 μs |  0.179 μs |  0.7324 |     13 KB |
 | value_object_struct_containing_string |  False |    46.06 μs |   2.626 μs |  0.144 μs |  0.7935 |     13 KB |
 |                 various_value_objects |  False | 8,297.31 μs | 167.850 μs |  9.200 μs | 46.8750 |    871 KB |
-|                     **NativeInt_JsonNet** |   **True** |    **17.74 μs** |   **0.979 μs** |  **0.054 μs** |  **0.5798** |     **10 KB** |
+|                     NativeInt_JsonNet |   True |    17.74 μs |   0.979 μs |  0.054 μs |  0.5798 |     10 KB |
 |          record_struct_containing_int |   True |    34.77 μs |   0.342 μs |  0.019 μs |  0.6714 |     12 KB |
 |    value_object_struct_containing_int |   True |    46.80 μs |   1.348 μs |  0.074 μs |  0.7935 |     13 KB |
 |     value_object_class_containing_int |   True |    45.37 μs |   5.511 μs |  0.302 μs |  0.7324 |     13 KB |
@@ -56,7 +56,7 @@ The `Strict` value represents whether the Value Objects had validation or not.
 |  value_object_class_containing_string |  False |   1,347.0 ns |     13.03 ns |     0.71 ns | 0.0496 |      - |     848 B |
 | value_object_struct_containing_string |  False |   1,346.8 ns |    172.35 ns |     9.45 ns | 0.0496 |      - |     848 B |
 |                 various_value_objects |  False | 216,397.8 ns |  9,087.26 ns |   498.10 ns | 6.1035 | 0.7324 | 105,080 B |
-|              **NativeInt_SystemTextJson** |   **True** |     **388.8 ns** |     **37.10 ns** |     **2.03 ns** | **0.0219** |      **-** |     **368 B** |
+|              NativeInt_SystemTextJson |   True |     388.8 ns |     37.10 ns |     2.03 ns | 0.0219 |      - |     368 B |
 |          record_struct_containing_int |   True |     653.3 ns |     23.28 ns |     1.28 ns | 0.0296 |      - |     510 B |
 |    value_object_struct_containing_int |   True |   1,228.5 ns |     82.34 ns |     4.51 ns | 0.0362 |      - |     624 B |
 |     value_object_class_containing_int |   True |   1,196.9 ns |     32.56 ns |     1.78 ns | 0.0362 |      - |     624 B |
