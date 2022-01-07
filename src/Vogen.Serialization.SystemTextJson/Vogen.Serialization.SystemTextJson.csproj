@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Description>
-      Provides serialization support between Vogen and Newtonsoft.Json
+      Provides serialization support between Vogen and System.Text.Json
     </Description>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageTags>vogen;system.text.json</PackageTags>
@@ -20,11 +20,8 @@
     <PackageReadmeFile>nuget-readme.md</PackageReadmeFile>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="bin\Debug\netstandard2.0\\Vogen.Serialization.SystemTextJson.dll" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="System.Text.Json" Version="6.0.1" />
-    <PackageReference Include="Vogen" Version="1.0.9" />
+    <PackageReference Include="Vogen" Version="1.0.15" />
   </ItemGroup>
 
 </Project>

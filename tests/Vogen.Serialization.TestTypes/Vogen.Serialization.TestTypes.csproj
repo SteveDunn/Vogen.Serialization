@@ -2,10 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Vogen" Version="1.0.9" />
+    <PackageReference Include="Vogen" Version="1.0.15" />
   </ItemGroup>
 
 </Project>

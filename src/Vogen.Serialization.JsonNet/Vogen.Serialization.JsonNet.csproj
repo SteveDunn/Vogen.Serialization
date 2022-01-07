@@ -17,10 +17,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
-  </ItemGroup>    
-
-  <ItemGroup>
     <None Include="..\..\assets\logo\gradient_128x128.png" Pack="true" PackagePath="" />
   </ItemGroup>
 
@@ -30,7 +26,7 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="Vogen" Version="1.0.9" />
+    <PackageReference Include="Vogen" Version="1.0.15" />
   </ItemGroup>
 
 </Project>
