@@ -15,6 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_files", "_files", "{72AF0E
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		.gitignore = .gitignore
+		Build.ps1 = Build.ps1
 		.github\workflows\build.yaml = .github\workflows\build.yaml
 		Directory.Build.props = Directory.Build.props
 		src\Directory.Build.props = src\Directory.Build.props
@@ -27,7 +28,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vogen.Serialization.SystemT
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vogen.Serialization.JsonNet", "src\Vogen.Serialization.JsonNet\Vogen.Serialization.JsonNet.csproj", "{32A27B0E-D2D9-4742-A4E3-386F50E43EE2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vogen.Serialization.TestTypes", "tests\Vogen.Serialization.TestTypes\Vogen.Serialization.TestTypes.csproj", "{D9F81217-BC87-4A1D-9861-5C0531FD8374}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vogen.Serialization.TestTypes", "tests\Vogen.Serialization.TestTypes\Vogen.Serialization.TestTypes.csproj", "{D9F81217-BC87-4A1D-9861-5C0531FD8374}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{7C516945-61DE-4D30-B9FD-7A1857F3E07A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vogen.Examples.JsonNet", "samples\Vogen.Examples.JsonNet\Vogen.Examples.JsonNet.csproj", "{325F26D0-8F6A-462F-BBCE-03784D2B0685}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vogen.Examples.SystemTextJson", "samples\Vogen.Examples.SystemTextJson\Vogen.Examples.SystemTextJson.csproj", "{6FFD0DAB-DECF-405F-9AA8-3F29D98F1B5E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +62,14 @@ Global
 		{D9F81217-BC87-4A1D-9861-5C0531FD8374}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9F81217-BC87-4A1D-9861-5C0531FD8374}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D9F81217-BC87-4A1D-9861-5C0531FD8374}.Release|Any CPU.Build.0 = Release|Any CPU
+		{325F26D0-8F6A-462F-BBCE-03784D2B0685}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{325F26D0-8F6A-462F-BBCE-03784D2B0685}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{325F26D0-8F6A-462F-BBCE-03784D2B0685}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{325F26D0-8F6A-462F-BBCE-03784D2B0685}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FFD0DAB-DECF-405F-9AA8-3F29D98F1B5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FFD0DAB-DECF-405F-9AA8-3F29D98F1B5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FFD0DAB-DECF-405F-9AA8-3F29D98F1B5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FFD0DAB-DECF-405F-9AA8-3F29D98F1B5E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -65,6 +80,8 @@ Global
 		{74C29C0E-1997-44D8-835F-3BAF2D819AFB} = {57174048-09D4-46A6-932C-8F90F2B603D0}
 		{32A27B0E-D2D9-4742-A4E3-386F50E43EE2} = {57174048-09D4-46A6-932C-8F90F2B603D0}
 		{D9F81217-BC87-4A1D-9861-5C0531FD8374} = {9955BB98-6ACF-4EC8-AE59-1B8DDCCBDCC6}
+		{325F26D0-8F6A-462F-BBCE-03784D2B0685} = {7C516945-61DE-4D30-B9FD-7A1857F3E07A}
+		{6FFD0DAB-DECF-405F-9AA8-3F29D98F1B5E} = {7C516945-61DE-4D30-B9FD-7A1857F3E07A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E4D5DD02-533B-4333-9CF9-ACD294C7F2EE}
