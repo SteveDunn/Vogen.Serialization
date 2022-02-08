@@ -8,7 +8,7 @@
 
 # NOTE:
 This package is only for Vogen version 1.0.16 and lower. Version 1.0.17 of Vogen generates its own serialisation attributes.
-</hr>
+<hr/>
 
 
 # Vogen.Serialization
